@@ -41,9 +41,36 @@ export class CreateRegistrationComponent implements OnInit {
       haveGymBefore: [''],
       enquiryDate: [''],
     })
+    this.registerForm.controls['height'].valueChanges.subscribe(res => {
+      this.calculateBMI(res)
+    })
   }
 
   submit() {
     console.log(this.registerForm.value);
+  }
+
+  calculateBMI(heightValue: number) {
+    const weight = this.registerForm.value.weight;
+    const height = heightValue;
+    const heightMetres = height / 100
+    const bmi = weight / (heightMetres * heightMetres);
+    this.registerForm.controls['bmi'].patchValue(bmi);
+
+    switch(true) {
+      case bmi < 18.5:
+        this.registerForm.controls['bmiResult'].patchValue("underweight");
+        break;
+      case (bmi >= 18.5 && bmi < 25):
+        this.registerForm.controls['bmiResult'].patchValue("Normal");
+        break;
+      case (bmi >= 25 && bmi < 30):
+        this.registerForm.controls['bmiResult'].patchValue("overweight");
+        break;
+      
+      default:
+        this.registerForm.controls['bmiResult'].patchValue("Obese");
+        break;
+    }
   }
 }
