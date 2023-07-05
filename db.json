@@ -1,3 +1,81 @@
 {
-  "enquiries": []
+  "enquiries": [
+    {
+      "firstName": "Mark",
+      "lastName": "Fene",
+      "email": "mark@gmail.com",
+      "mobile": "0711223344",
+      "weight": 75,
+      "height": 185,
+      "bmi": 21.913805697589478,
+      "bmiResult": "Normal",
+      "gender": "Male",
+      "requireTrainer": "No",
+      "package": "Monthly",
+      "important": [
+        "Energy and endurance",
+        "Building lean muscle"
+      ],
+      "haveGymBefore": "Yes",
+      "enquiryDate": "2023-07-04T21:00:00.000Z",
+      "id": 1
+    },
+    {
+      "firstName": "Joao",
+      "lastName": "Felix",
+      "email": "Joao@gmail.com",
+      "mobile": "0711223344",
+      "weight": 67,
+      "height": 172,
+      "bmi": 22.647376960519203,
+      "bmiResult": "Normal",
+      "gender": "Male",
+      "requireTrainer": "No",
+      "package": "Yearly",
+      "important": [
+        "Energy and endurance"
+      ],
+      "haveGymBefore": "No",
+      "enquiryDate": "2023-07-05T21:00:00.000Z",
+      "id": 2
+    },
+    {
+      "firstName": "Joao",
+      "lastName": "Felix",
+      "email": "Joao@gmail.com",
+      "mobile": "0711223344",
+      "weight": 65,
+      "height": 172,
+      "bmi": 21.971335857220122,
+      "bmiResult": "Normal",
+      "gender": "Male",
+      "requireTrainer": "Yes",
+      "package": "Monthly",
+      "important": [
+        "Energy and endurance"
+      ],
+      "haveGymBefore": "Yes",
+      "enquiryDate": "2023-07-03T21:00:00.000Z",
+      "id": 3
+    },
+    {
+      "firstName": "Sonia",
+      "lastName": "Alosa",
+      "email": "Sonia@gmail.com",
+      "mobile": "0711223344",
+      "weight": 62,
+      "height": 170,
+      "bmi": 21.453287197231838,
+      "bmiResult": "Normal",
+      "gender": "Female",
+      "requireTrainer": "Yes",
+      "package": "Yearly",
+      "important": [
+        "Fitness"
+      ],
+      "haveGymBefore": "No",
+      "enquiryDate": "2023-07-04T21:00:00.000Z",
+      "id": 4
+    }
+  ]
 }

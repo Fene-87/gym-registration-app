@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ApiService } from '../services/api.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-create-registration',
@@ -21,7 +23,7 @@ export class CreateRegistrationComponent implements OnInit {
 
   public registerForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private api: ApiService, private toastService: NgToastService) {
 
   }
   ngOnInit(): void {
@@ -47,7 +49,11 @@ export class CreateRegistrationComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.registerForm.value);
+    this.api.postRegistration(this.registerForm.value)
+    .subscribe(res => {
+      this.toastService.success({detail: "SUCCESS", summary: "Enquiry added", duration:3000});
+      this.registerForm.reset();
+    })
   }
 
   calculateBMI(heightValue: number) {
