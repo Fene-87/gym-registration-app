@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import { NgToastService } from 'ng-angular-popup';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-registration',
@@ -22,8 +23,9 @@ export class CreateRegistrationComponent implements OnInit {
   ];
 
   public registerForm!: FormGroup;
+  public userIdToUpdate!: number;
 
-  constructor(private fb: FormBuilder, private api: ApiService, private toastService: NgToastService) {
+  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private api: ApiService, private toastService: NgToastService) {
 
   }
   ngOnInit(): void {
@@ -45,6 +47,13 @@ export class CreateRegistrationComponent implements OnInit {
     })
     this.registerForm.controls['height'].valueChanges.subscribe(res => {
       this.calculateBMI(res)
+    })
+    this.activatedRoute.params.subscribe(val => {
+      this.userIdToUpdate = val['id']
+      this.api.getRegisteredUserId(this.userIdToUpdate)
+      .subscribe(res => {
+        
+      })
     })
   }
 
