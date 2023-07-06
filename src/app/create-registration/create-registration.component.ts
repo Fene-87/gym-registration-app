@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import { NgToastService } from 'ng-angular-popup';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../model/user.model';
 
 @Component({
@@ -27,7 +27,7 @@ export class CreateRegistrationComponent implements OnInit {
   public userIdToUpdate!: number;
   public isUpdateActive: boolean = false;
 
-  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private api: ApiService, private toastService: NgToastService) {
+  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router, private api: ApiService, private toastService: NgToastService) {
 
   }
   ngOnInit(): void {
@@ -69,7 +69,12 @@ export class CreateRegistrationComponent implements OnInit {
   }
 
   update() {
-    
+    this.api.updateRegiteredUser(this.registerForm.value, this.userIdToUpdate)
+    .subscribe(res => {
+      this.toastService.success({detail: "SUCCESS", summary: "Enquiry updated", duration:3000});
+      this.registerForm.reset();
+      this.router.navigate(['list']);
+    })
   }
 
   calculateBMI(heightValue: number) {
