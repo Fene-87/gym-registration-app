@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import { NgToastService } from 'ng-angular-popup';
 import { ActivatedRoute } from '@angular/router';
+import { User } from '../model/user.model';
 
 @Component({
   selector: 'app-create-registration',
@@ -24,6 +25,7 @@ export class CreateRegistrationComponent implements OnInit {
 
   public registerForm!: FormGroup;
   public userIdToUpdate!: number;
+  public isUpdateActive: boolean = false;
 
   constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private api: ApiService, private toastService: NgToastService) {
 
@@ -52,7 +54,8 @@ export class CreateRegistrationComponent implements OnInit {
       this.userIdToUpdate = val['id']
       this.api.getRegisteredUserId(this.userIdToUpdate)
       .subscribe(res => {
-        
+        this.isUpdateActive = true;
+        this.fillFormToUpdate(res);
       })
     })
   }
@@ -63,6 +66,10 @@ export class CreateRegistrationComponent implements OnInit {
       this.toastService.success({detail: "SUCCESS", summary: "Enquiry added", duration:3000});
       this.registerForm.reset();
     })
+  }
+
+  update() {
+    
   }
 
   calculateBMI(heightValue: number) {
@@ -87,5 +94,24 @@ export class CreateRegistrationComponent implements OnInit {
         this.registerForm.controls['bmiResult'].patchValue("Obese");
         break;
     }
+  }
+
+  fillFormToUpdate(user: User) {
+    this.registerForm.setValue({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      mobile: user.mobile,
+      weight: user.weight,
+      height: user.height,
+      bmi: user.bmi,
+      bmiResult: user.bmiResult,
+      requireTrainer: user.requireTrainer,
+      gender: user.gender,
+      package: user.package,
+      haveGymBefore: user.haveGymBefore,
+      important: user.important,
+      enquiryDate: user.enquiryDate,
+    })
   }
 }
