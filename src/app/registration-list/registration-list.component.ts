@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { User } from '../model/user.model';
 import { ApiService } from '../services/api.service';
 import { Router } from '@angular/router';
+import { NgConfirmService } from 'ng-confirm-box';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-registration-list',
@@ -18,7 +20,7 @@ export class RegistrationListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email', 'mobile', 'bmiResult', 'gender', 'package', 'enquiryDate', 'action'];
 
-  constructor(private api: ApiService, private router: Router) {
+  constructor(private api: ApiService, private toast: NgToastService, private router: Router, private confirm: NgConfirmService) {
 
   }
   ngOnInit(): void {
@@ -44,5 +46,18 @@ export class RegistrationListComponent implements OnInit {
   }
   edit(id:number) {
     this.router.navigate(['update', id])
+  }
+  delete(id: number) {
+    this.confirm.showConfirm("Are you sure?",
+    () => {
+      this.api.deleteRegisteredUser(id)
+      .subscribe(res => {
+        this.toast.success({detail: "SUCCESS", summary: 'Deleted successfully', duration: 3000});
+        this.getUsers();
+      })
+    },
+    () => {
+
+    });
   }
 }
