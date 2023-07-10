@@ -1,9 +1,14 @@
 <mat-toolbar color="primary">
     <h1>CF Slimpossible</h1>
     <span class="example-spacer"></span>
-    <button mat-raised-button color="accent">
+    <button routerLink="/list" mat-raised-button color="accent">
       View Enquiries
     </button>
 </mat-toolbar>
 
-<router-outlet></router-outlet>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
+<ng-toast></ng-toast>
+<ng-confirm></ng-confirm>
